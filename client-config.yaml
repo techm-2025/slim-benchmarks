@@ -1,0 +1,10 @@
+runtime:
+  n_cores: 2
+  thread_name: "slim-runtime"
+  drain_timeout: 10s
+
+services:
+  slim/client:
+    dataplane:
+      servers: []
+      clients: []
