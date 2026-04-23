@@ -27,6 +27,9 @@ ENV/
 .coverage.*
 htmlcov/
 
+# Generated capture output (pcap, hex dumps, charts)
+captures/
+
 # macOS
 .DS_Store
 
