@@ -1,0 +1,709 @@
+{
+  "timestamp_utc": "2026-06-22T22:11:03.505829+00:00",
+  "endpoint": "http://localhost:46357",
+  "rounds": 5,
+  "results": [
+    {
+      "scenario": "full_mesh_slim_unicast_sequential",
+      "count": 450,
+      "mean_ms": 0.055,
+      "median_ms": 0.05,
+      "p50_ms": 0.05,
+      "p95_ms": 0.099,
+      "p99_ms": 0.117,
+      "min_ms": 0.026,
+      "max_ms": 0.128,
+      "metadata": {
+        "transport": "slim_unicast_point_to_point",
+        "mode": "sequential",
+        "agents": 10,
+        "rounds": 5,
+        "directed_edges": 90,
+        "expected_messages": 450,
+        "payload_bytes": 64,
+        "round_wall_ms": [
+          5.3,
+          5.0,
+          4.8,
+          5.2,
+          4.9
+        ],
+        "round_wall_mean_ms": 5.0,
+        "messages_received_by_peers": 450
+      },
+      "session_setup": {
+        "count": 90,
+        "mean_ms": 0.278,
+        "median_ms": 0.211,
+        "p50_ms": 0.211,
+        "p95_ms": 0.635,
+        "p99_ms": 0.976,
+        "min_ms": 0.166,
+        "max_ms": 1.231
+      }
+    },
+    {
+      "scenario": "full_mesh_slim_unicast_sequential",
+      "count": 450,
+      "mean_ms": 0.084,
+      "median_ms": 0.077,
+      "p50_ms": 0.077,
+      "p95_ms": 0.126,
+      "p99_ms": 0.185,
+      "min_ms": 0.055,
+      "max_ms": 0.426,
+      "metadata": {
+        "transport": "slim_unicast_point_to_point",
+        "mode": "sequential",
+        "agents": 10,
+        "rounds": 5,
+        "directed_edges": 90,
+        "expected_messages": 450,
+        "payload_bytes": 512,
+        "round_wall_ms": [
+          7.4,
+          7.1,
+          7.5,
+          7.3,
+          8.7
+        ],
+        "round_wall_mean_ms": 7.6,
+        "messages_received_by_peers": 450
+      },
+      "session_setup": {
+        "count": 90,
+        "mean_ms": 0.283,
+        "median_ms": 0.218,
+        "p50_ms": 0.218,
+        "p95_ms": 0.551,
+        "p99_ms": 0.865,
+        "min_ms": 0.161,
+        "max_ms": 2.339
+      }
+    },
+    {
+      "scenario": "full_mesh_slim_unicast_sequential",
+      "count": 450,
+      "mean_ms": 0.329,
+      "median_ms": 0.324,
+      "p50_ms": 0.324,
+      "p95_ms": 0.366,
+      "p99_ms": 0.439,
+      "min_ms": 0.282,
+      "max_ms": 1.118,
+      "metadata": {
+        "transport": "slim_unicast_point_to_point",
+        "mode": "sequential",
+        "agents": 10,
+        "rounds": 5,
+        "directed_edges": 90,
+        "expected_messages": 450,
+        "payload_bytes": 4096,
+        "round_wall_ms": [
+          29.9,
+          31.0,
+          29.4,
+          29.2,
+          28.8
+        ],
+        "round_wall_mean_ms": 29.7,
+        "messages_received_by_peers": 450
+      },
+      "session_setup": {
+        "count": 90,
+        "mean_ms": 0.273,
+        "median_ms": 0.217,
+        "p50_ms": 0.216,
+        "p95_ms": 0.551,
+        "p99_ms": 0.696,
+        "min_ms": 0.168,
+        "max_ms": 0.991
+      }
+    },
+    {
+      "scenario": "full_mesh_slim_unicast_sequential",
+      "count": 1900,
+      "mean_ms": 0.057,
+      "median_ms": 0.051,
+      "p50_ms": 0.051,
+      "p95_ms": 0.102,
+      "p99_ms": 0.138,
+      "min_ms": 0.026,
+      "max_ms": 0.198,
+      "metadata": {
+        "transport": "slim_unicast_point_to_point",
+        "mode": "sequential",
+        "agents": 20,
+        "rounds": 5,
+        "directed_edges": 380,
+        "expected_messages": 1900,
+        "payload_bytes": 64,
+        "round_wall_ms": [
+          23.9,
+          21.6,
+          20.7,
+          20.9,
+          21.9
+        ],
+        "round_wall_mean_ms": 21.8,
+        "messages_received_by_peers": 1900
+      },
+      "session_setup": {
+        "count": 380,
+        "mean_ms": 0.242,
+        "median_ms": 0.228,
+        "p50_ms": 0.228,
+        "p95_ms": 0.306,
+        "p99_ms": 0.597,
+        "min_ms": 0.17,
+        "max_ms": 1.089
+      }
+    },
+    {
+      "scenario": "full_mesh_slim_unicast_sequential",
+      "count": 1900,
+      "mean_ms": 0.103,
+      "median_ms": 0.091,
+      "p50_ms": 0.091,
+      "p95_ms": 0.187,
+      "p99_ms": 0.267,
+      "min_ms": 0.055,
+      "max_ms": 0.365,
+      "metadata": {
+        "transport": "slim_unicast_point_to_point",
+        "mode": "sequential",
+        "agents": 20,
+        "rounds": 5,
+        "directed_edges": 380,
+        "expected_messages": 1900,
+        "payload_bytes": 512,
+        "round_wall_ms": [
+          32.8,
+          37.8,
+          43.1,
+          46.3,
+          36.3
+        ],
+        "round_wall_mean_ms": 39.3,
+        "messages_received_by_peers": 1900
+      },
+      "session_setup": {
+        "count": 380,
+        "mean_ms": 0.266,
+        "median_ms": 0.246,
+        "p50_ms": 0.246,
+        "p95_ms": 0.368,
+        "p99_ms": 0.642,
+        "min_ms": 0.175,
+        "max_ms": 1.701
+      }
+    },
+    {
+      "scenario": "full_mesh_slim_unicast_sequential",
+      "count": 1900,
+      "mean_ms": 0.335,
+      "median_ms": 0.323,
+      "p50_ms": 0.323,
+      "p95_ms": 0.402,
+      "p99_ms": 0.551,
+      "min_ms": 0.278,
+      "max_ms": 1.443,
+      "metadata": {
+        "transport": "slim_unicast_point_to_point",
+        "mode": "sequential",
+        "agents": 20,
+        "rounds": 5,
+        "directed_edges": 380,
+        "expected_messages": 1900,
+        "payload_bytes": 4096,
+        "round_wall_ms": [
+          123.8,
+          127.3,
+          126.1,
+          137.4,
+          123.1
+        ],
+        "round_wall_mean_ms": 127.5,
+        "messages_received_by_peers": 1900
+      },
+      "session_setup": {
+        "count": 380,
+        "mean_ms": 0.255,
+        "median_ms": 0.236,
+        "p50_ms": 0.235,
+        "p95_ms": 0.346,
+        "p99_ms": 0.649,
+        "min_ms": 0.174,
+        "max_ms": 1.573
+      }
+    },
+    {
+      "scenario": "full_mesh_slim_unicast_sequential",
+      "count": 7800,
+      "mean_ms": 0.08,
+      "median_ms": 0.069,
+      "p50_ms": 0.069,
+      "p95_ms": 0.157,
+      "p99_ms": 0.216,
+      "min_ms": 0.02,
+      "max_ms": 0.87,
+      "metadata": {
+        "transport": "slim_unicast_point_to_point",
+        "mode": "sequential",
+        "agents": 40,
+        "rounds": 5,
+        "directed_edges": 1560,
+        "expected_messages": 7800,
+        "payload_bytes": 64,
+        "round_wall_ms": [
+          133.6,
+          124.8,
+          119.4,
+          120.7,
+          126.0
+        ],
+        "round_wall_mean_ms": 124.9,
+        "messages_received_by_peers": 7800
+      },
+      "session_setup": {
+        "count": 1560,
+        "mean_ms": 0.346,
+        "median_ms": 0.312,
+        "p50_ms": 0.312,
+        "p95_ms": 0.514,
+        "p99_ms": 1.309,
+        "min_ms": 0.172,
+        "max_ms": 4.038
+      }
+    },
+    {
+      "scenario": "full_mesh_slim_unicast_sequential",
+      "count": 7800,
+      "mean_ms": 0.102,
+      "median_ms": 0.094,
+      "p50_ms": 0.094,
+      "p95_ms": 0.164,
+      "p99_ms": 0.206,
+      "min_ms": 0.057,
+      "max_ms": 1.21,
+      "metadata": {
+        "transport": "slim_unicast_point_to_point",
+        "mode": "sequential",
+        "agents": 40,
+        "rounds": 5,
+        "directed_edges": 1560,
+        "expected_messages": 7800,
+        "payload_bytes": 512,
+        "round_wall_ms": [
+          153.4,
+          162.0,
+          162.7,
+          159.2,
+          163.9
+        ],
+        "round_wall_mean_ms": 160.2,
+        "messages_received_by_peers": 7800
+      },
+      "session_setup": {
+        "count": 1560,
+        "mean_ms": 0.418,
+        "median_ms": 0.381,
+        "p50_ms": 0.381,
+        "p95_ms": 0.653,
+        "p99_ms": 1.18,
+        "min_ms": 0.2,
+        "max_ms": 5.574
+      }
+    },
+    {
+      "scenario": "full_mesh_slim_unicast_sequential",
+      "count": 7800,
+      "mean_ms": 0.348,
+      "median_ms": 0.338,
+      "p50_ms": 0.338,
+      "p95_ms": 0.413,
+      "p99_ms": 0.492,
+      "min_ms": 0.281,
+      "max_ms": 2.493,
+      "metadata": {
+        "transport": "slim_unicast_point_to_point",
+        "mode": "sequential",
+        "agents": 40,
+        "rounds": 5,
+        "directed_edges": 1560,
+        "expected_messages": 7800,
+        "payload_bytes": 4096,
+        "round_wall_ms": [
+          554.1,
+          543.1,
+          536.4,
+          548.9,
+          537.6
+        ],
+        "round_wall_mean_ms": 544.0,
+        "messages_received_by_peers": 7800
+      },
+      "session_setup": {
+        "count": 1560,
+        "mean_ms": 0.416,
+        "median_ms": 0.373,
+        "p50_ms": 0.373,
+        "p95_ms": 0.634,
+        "p99_ms": 1.035,
+        "min_ms": 0.203,
+        "max_ms": 5.653
+      }
+    },
+    {
+      "scenario": "full_mesh_slim_unicast_concurrent",
+      "count": 450,
+      "mean_ms": 0.999,
+      "median_ms": 0.782,
+      "p50_ms": 0.782,
+      "p95_ms": 2.566,
+      "p99_ms": 3.521,
+      "min_ms": 0.047,
+      "max_ms": 5.635,
+      "metadata": {
+        "transport": "slim_unicast_point_to_point",
+        "mode": "concurrent",
+        "agents": 10,
+        "rounds": 5,
+        "directed_edges": 90,
+        "expected_messages": 450,
+        "payload_bytes": 64,
+        "round_wall_ms": [
+          12.5,
+          12.9,
+          12.4,
+          11.9,
+          12.0
+        ],
+        "round_wall_mean_ms": 12.4,
+        "messages_received_by_peers": 450
+      },
+      "session_setup": {
+        "count": 90,
+        "mean_ms": 0.383,
+        "median_ms": 0.342,
+        "p50_ms": 0.342,
+        "p95_ms": 0.662,
+        "p99_ms": 0.936,
+        "min_ms": 0.253,
+        "max_ms": 1.153
+      }
+    },
+    {
+      "scenario": "full_mesh_slim_unicast_concurrent",
+      "count": 450,
+      "mean_ms": 0.827,
+      "median_ms": 0.605,
+      "p50_ms": 0.603,
+      "p95_ms": 2.334,
+      "p99_ms": 3.888,
+      "min_ms": 0.064,
+      "max_ms": 5.704,
+      "metadata": {
+        "transport": "slim_unicast_point_to_point",
+        "mode": "concurrent",
+        "agents": 10,
+        "rounds": 5,
+        "directed_edges": 90,
+        "expected_messages": 450,
+        "payload_bytes": 512,
+        "round_wall_ms": [
+          9.7,
+          9.8,
+          9.4,
+          9.5,
+          9.4
+        ],
+        "round_wall_mean_ms": 9.6,
+        "messages_received_by_peers": 450
+      },
+      "session_setup": {
+        "count": 90,
+        "mean_ms": 0.279,
+        "median_ms": 0.231,
+        "p50_ms": 0.231,
+        "p95_ms": 0.559,
+        "p99_ms": 1.033,
+        "min_ms": 0.157,
+        "max_ms": 1.137
+      }
+    },
+    {
+      "scenario": "full_mesh_slim_unicast_concurrent",
+      "count": 450,
+      "mean_ms": 2.886,
+      "median_ms": 1.941,
+      "p50_ms": 1.927,
+      "p95_ms": 8.55,
+      "p99_ms": 12.421,
+      "min_ms": 0.305,
+      "max_ms": 18.384,
+      "metadata": {
+        "transport": "slim_unicast_point_to_point",
+        "mode": "concurrent",
+        "agents": 10,
+        "rounds": 5,
+        "directed_edges": 90,
+        "expected_messages": 450,
+        "payload_bytes": 4096,
+        "round_wall_ms": [
+          33.2,
+          32.7,
+          32.2,
+          32.3,
+          32.2
+        ],
+        "round_wall_mean_ms": 32.5,
+        "messages_received_by_peers": 450
+      },
+      "session_setup": {
+        "count": 90,
+        "mean_ms": 0.309,
+        "median_ms": 0.255,
+        "p50_ms": 0.254,
+        "p95_ms": 0.596,
+        "p99_ms": 0.838,
+        "min_ms": 0.173,
+        "max_ms": 1.196
+      }
+    },
+    {
+      "scenario": "full_mesh_slim_unicast_concurrent",
+      "count": 1900,
+      "mean_ms": 1.575,
+      "median_ms": 1.127,
+      "p50_ms": 1.126,
+      "p95_ms": 4.618,
+      "p99_ms": 6.762,
+      "min_ms": 0.035,
+      "max_ms": 13.168,
+      "metadata": {
+        "transport": "slim_unicast_point_to_point",
+        "mode": "concurrent",
+        "agents": 20,
+        "rounds": 5,
+        "directed_edges": 380,
+        "expected_messages": 1900,
+        "payload_bytes": 64,
+        "round_wall_ms": [
+          36.3,
+          34.5,
+          36.5,
+          36.0,
+          34.2
+        ],
+        "round_wall_mean_ms": 35.5,
+        "messages_received_by_peers": 1900
+      },
+      "session_setup": {
+        "count": 380,
+        "mean_ms": 0.304,
+        "median_ms": 0.25,
+        "p50_ms": 0.25,
+        "p95_ms": 0.465,
+        "p99_ms": 1.431,
+        "min_ms": 0.161,
+        "max_ms": 4.221
+      }
+    },
+    {
+      "scenario": "full_mesh_slim_unicast_concurrent",
+      "count": 1900,
+      "mean_ms": 2.203,
+      "median_ms": 1.587,
+      "p50_ms": 1.586,
+      "p95_ms": 6.145,
+      "p99_ms": 9.48,
+      "min_ms": 0.065,
+      "max_ms": 17.336,
+      "metadata": {
+        "transport": "slim_unicast_point_to_point",
+        "mode": "concurrent",
+        "agents": 20,
+        "rounds": 5,
+        "directed_edges": 380,
+        "expected_messages": 1900,
+        "payload_bytes": 512,
+        "round_wall_ms": [
+          49.1,
+          52.2,
+          49.6,
+          50.1,
+          49.2
+        ],
+        "round_wall_mean_ms": 50.0,
+        "messages_received_by_peers": 1900
+      },
+      "session_setup": {
+        "count": 380,
+        "mean_ms": 0.301,
+        "median_ms": 0.269,
+        "p50_ms": 0.269,
+        "p95_ms": 0.368,
+        "p99_ms": 0.686,
+        "min_ms": 0.205,
+        "max_ms": 3.981
+      }
+    },
+    {
+      "scenario": "full_mesh_slim_unicast_concurrent",
+      "count": 1900,
+      "mean_ms": 6.628,
+      "median_ms": 4.825,
+      "p50_ms": 4.814,
+      "p95_ms": 18.865,
+      "p99_ms": 27.122,
+      "min_ms": 0.32,
+      "max_ms": 40.007,
+      "metadata": {
+        "transport": "slim_unicast_point_to_point",
+        "mode": "concurrent",
+        "agents": 20,
+        "rounds": 5,
+        "directed_edges": 380,
+        "expected_messages": 1900,
+        "payload_bytes": 4096,
+        "round_wall_ms": [
+          144.4,
+          143.8,
+          148.7,
+          156.2,
+          137.6
+        ],
+        "round_wall_mean_ms": 146.1,
+        "messages_received_by_peers": 1900
+      },
+      "session_setup": {
+        "count": 380,
+        "mean_ms": 0.284,
+        "median_ms": 0.257,
+        "p50_ms": 0.257,
+        "p95_ms": 0.393,
+        "p99_ms": 0.868,
+        "min_ms": 0.175,
+        "max_ms": 1.957
+      }
+    },
+    {
+      "scenario": "full_mesh_slim_unicast_concurrent",
+      "count": 7800,
+      "mean_ms": 4.859,
+      "median_ms": 3.895,
+      "p50_ms": 3.895,
+      "p95_ms": 12.877,
+      "p99_ms": 18.63,
+      "min_ms": 0.031,
+      "max_ms": 33.331,
+      "metadata": {
+        "transport": "slim_unicast_point_to_point",
+        "mode": "concurrent",
+        "agents": 40,
+        "rounds": 5,
+        "directed_edges": 1560,
+        "expected_messages": 7800,
+        "payload_bytes": 64,
+        "round_wall_ms": [
+          235.9,
+          210.5,
+          213.8,
+          205.9,
+          209.0
+        ],
+        "round_wall_mean_ms": 215.0,
+        "messages_received_by_peers": 7800
+      },
+      "session_setup": {
+        "count": 1560,
+        "mean_ms": 0.325,
+        "median_ms": 0.314,
+        "p50_ms": 0.314,
+        "p95_ms": 0.448,
+        "p99_ms": 0.581,
+        "min_ms": 0.174,
+        "max_ms": 6.051
+      }
+    },
+    {
+      "scenario": "full_mesh_slim_unicast_concurrent",
+      "count": 7800,
+      "mean_ms": 6.214,
+      "median_ms": 4.888,
+      "p50_ms": 4.888,
+      "p95_ms": 16.774,
+      "p99_ms": 24.009,
+      "min_ms": 0.075,
+      "max_ms": 43.831,
+      "metadata": {
+        "transport": "slim_unicast_point_to_point",
+        "mode": "concurrent",
+        "agents": 40,
+        "rounds": 5,
+        "directed_edges": 1560,
+        "expected_messages": 7800,
+        "payload_bytes": 512,
+        "round_wall_ms": [
+          324.0,
+          272.3,
+          275.0,
+          246.7,
+          250.0
+        ],
+        "round_wall_mean_ms": 273.6,
+        "messages_received_by_peers": 7800
+      },
+      "session_setup": {
+        "count": 1560,
+        "mean_ms": 0.404,
+        "median_ms": 0.377,
+        "p50_ms": 0.377,
+        "p95_ms": 0.602,
+        "p99_ms": 0.911,
+        "min_ms": 0.196,
+        "max_ms": 2.711
+      }
+    },
+    {
+      "scenario": "full_mesh_slim_unicast_concurrent",
+      "count": 7800,
+      "mean_ms": 15.595,
+      "median_ms": 12.345,
+      "p50_ms": 12.345,
+      "p95_ms": 40.362,
+      "p99_ms": 58.003,
+      "min_ms": 0.324,
+      "max_ms": 114.511,
+      "metadata": {
+        "transport": "slim_unicast_point_to_point",
+        "mode": "concurrent",
+        "agents": 40,
+        "rounds": 5,
+        "directed_edges": 1560,
+        "expected_messages": 7800,
+        "payload_bytes": 4096,
+        "round_wall_ms": [
+          664.1,
+          652.2,
+          688.5,
+          676.9,
+          665.3
+        ],
+        "round_wall_mean_ms": 669.4,
+        "messages_received_by_peers": 7800
+      },
+      "session_setup": {
+        "count": 1560,
+        "mean_ms": 0.409,
+        "median_ms": 0.378,
+        "p50_ms": 0.378,
+        "p95_ms": 0.59,
+        "p99_ms": 0.865,
+        "min_ms": 0.197,
+        "max_ms": 11.473
+      }
+    }
+  ]
+}
