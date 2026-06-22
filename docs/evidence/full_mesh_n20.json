@@ -1,0 +1,30 @@
+{
+  "timestamp_utc": "2026-06-22T22:03:13.818263+00:00",
+  "endpoint": "http://localhost:46357",
+  "config": {
+    "agents": 20,
+    "rounds": 1,
+    "payload_size": 64
+  },
+  "results": [
+    {
+      "scenario": "full_mesh_slim_unicast",
+      "count": 380,
+      "mean_ms": 0.092,
+      "median_ms": 0.08,
+      "p50_ms": 0.08,
+      "p95_ms": 0.162,
+      "min_ms": 0.032,
+      "max_ms": 1.109,
+      "metadata": {
+        "transport": "slim_unicast_point_to_point",
+        "agents": 20,
+        "rounds": 1,
+        "directed_edges": 380,
+        "expected_messages": 380,
+        "payload_bytes": 64,
+        "messages_received_by_peers": 380
+      }
+    }
+  ]
+}
