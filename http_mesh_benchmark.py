@@ -1,41 +1,36 @@
-"""CLI runner: real-SLIM full-mesh latency, single config or sweep.
+"""CLI runner: HTTP full-mesh latency with no SLIM (the mesh-config baseline).
 
-Requires a SLIM node reachable at the endpoint in slim_bench/config.py
-(default localhost:46357):
-
-    docker run --rm -d --name slim-node -p 46357:46357 \
-      -v "$(pwd)/server-config.yaml:/config.yaml" \
-      --entrypoint /slim ghcr.io/agntcy/slim:1.3.0 --config /config.yaml
+Cell 3 of the four-cell comparison. Needs no SLIM node and no Docker — it runs
+plain HTTP servers on loopback. Mirrors mesh_benchmark.py so the two emit the
+same result shape.
 
 Single run:
-    python mesh_benchmark.py --agents 20 --rounds 5 --payload-size 64 --concurrent
+    python http_mesh_benchmark.py --agents 20 --rounds 5 --payload-size 64 --concurrent
 
 Sweep (agent counts x payload sizes, both modes):
-    python mesh_benchmark.py --sweep --agents-list 10,20,40 \
-      --payloads 64,512,4096 --rounds 5 --output docs/evidence/sweep.json
+    python http_mesh_benchmark.py --sweep --agents-list 10,20,40 \
+      --payloads 64,512,4096 --rounds 5 --output docs/evidence/http_mesh_sweep.json
 """
 
 from __future__ import annotations
 
 import argparse
 import json
-import uuid
 from datetime import datetime, timezone
 
-from slim_bench.config import SLIM_ENDPOINT, init_slim
 from slim_bench.display import B, CY, MG, R, SEP2, log
-from slim_bench.mesh import (
-    build_mesh,
-    run_full_mesh,
-    teardown_mesh,
-    warm_sessions,
-    _summary_stats,
+from slim_bench.http_mesh import (
+    build_http_mesh,
+    run_full_http_mesh,
+    teardown_http_mesh,
+    warm_connections,
 )
-from slim_bench.mp_mesh import run_parallel_mesh
+from slim_bench.mp_http_mesh import run_parallel_http_mesh
+from slim_bench.results import _summary_stats
 
 
 def parse_args() -> argparse.Namespace:
-    p = argparse.ArgumentParser(description="Real-SLIM full-mesh latency benchmark.")
+    p = argparse.ArgumentParser(description="HTTP full-mesh latency benchmark (no SLIM).")
     p.add_argument("--agents", type=int, default=20, help="Agents (single-run mode).")
     p.add_argument("--rounds", type=int, default=1, help="Full-mesh rounds per config.")
     p.add_argument("--payload-size", type=int, default=64, help="Payload bytes (single-run).")
@@ -49,24 +44,20 @@ def parse_args() -> argparse.Namespace:
     return p.parse_args()
 
 
-def run_one(svc, conn_id, agents_n, payload_size, rounds, mode) -> dict:
+def run_one(agents_n, payload_size, rounds, mode) -> dict:
     """mode is one of 'sequential', 'concurrent' (threads), 'parallel' (processes)."""
     payload = b"x" * payload_size
-    # Unique namespace per run so repeated configs on one service never collide
-    # with stale subscriptions/sessions from a previous config.
-    tag = f"mesh-{uuid.uuid4().hex[:8]}"
-
     if mode == "parallel":
-        # Each agent runs in its own process with its own SLIM runtime.
-        result = run_parallel_mesh(agents_n, payload, rounds, tag)
+        # Process-per-agent harness manages its own servers/connections.
+        result = run_parallel_http_mesh(agents_n, payload, rounds)
         return result.summary()
 
-    agents = build_mesh(svc, conn_id, agents_n, tag=tag)
+    agents = build_http_mesh(agents_n)
     try:
-        setup = warm_sessions(agents)
-        result = run_full_mesh(agents, payload, rounds, concurrent=(mode == "concurrent"))
+        setup = warm_connections(agents)
+        result = run_full_http_mesh(agents, payload, rounds, concurrent=(mode == "concurrent"))
     finally:
-        received = teardown_mesh(agents)
+        received = teardown_http_mesh(agents)
 
     summary = result.summary()
     summary["metadata"]["messages_received_by_peers"] = received
@@ -87,30 +78,25 @@ def print_row(s: dict) -> None:
 def main() -> None:
     args = parse_args()
 
-    svc = init_slim()
-    conn_id = svc.get_connection_id(SLIM_ENDPOINT)
-    if conn_id is None:
-        raise SystemExit(f"Not connected to SLIM node at {SLIM_ENDPOINT}")
-
     results = []
     if args.sweep:
         agents_list = [int(x) for x in args.agents_list.split(",") if x.strip()]
         payloads = [int(x) for x in args.payloads.split(",") if x.strip()]
+        # parallel (true process-per-agent) is the credible concurrency leg; the
+        # thread-based 'concurrent' leg is kept for reference / GIL comparison.
         modes = ["sequential", "concurrent", "parallel"] if args.parallel else ["sequential", "concurrent"]
         for mode in modes:
             for n in agents_list:
                 for pay in payloads:
                     log(CY, "SWEEP", f"n={n} payload={pay} mode={mode}")
-                    results.append(run_one(svc, conn_id, n, pay, args.rounds, mode))
+                    results.append(run_one(n, pay, args.rounds, mode))
     else:
         mode = "parallel" if args.parallel else ("concurrent" if args.concurrent else "sequential")
-        results.append(
-            run_one(svc, conn_id, args.agents, args.payload_size, args.rounds, mode)
-        )
+        results.append(run_one(args.agents, args.payload_size, args.rounds, mode))
 
     report = {
         "timestamp_utc": datetime.now(timezone.utc).isoformat(),
-        "endpoint": SLIM_ENDPOINT,
+        "transport": "http_no_slim",
         "rounds": args.rounds,
         "results": results,
     }

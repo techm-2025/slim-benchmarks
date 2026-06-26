@@ -22,32 +22,15 @@ import datetime
 import statistics
 import threading
 import time
-from dataclasses import dataclass, field
-from typing import Any
 
 import slim_bindings as slim
 
 from .config import SECRET, session_cfg
 from .display import B, CY, GR, R, RD, YL, log
+from .results import MeshResult, _summary_stats
 
 # Short poll timeout for receiver loops so they can notice the stop flag.
 RECV_POLL = datetime.timedelta(seconds=2)
-
-
-def _summary_stats(samples: list[float]) -> dict[str, Any]:
-    ordered = sorted(samples)
-    n = len(ordered)
-    pick = lambda q: ordered[int(q * (n - 1))] if n else 0.0
-    return {
-        "count": n,
-        "mean_ms": round(statistics.mean(samples), 3) if n else 0.0,
-        "median_ms": round(statistics.median(samples), 3) if n else 0.0,
-        "p50_ms": round(pick(0.50), 3),
-        "p95_ms": round(pick(0.95), 3),
-        "p99_ms": round(pick(0.99), 3),
-        "min_ms": round(min(samples), 3) if n else 0.0,
-        "max_ms": round(max(samples), 3) if n else 0.0,
-    }
 
 
 class MeshAgent:
@@ -103,19 +86,6 @@ class MeshAgent:
 
     def stop(self) -> None:
         self._stop.set()
-
-
-@dataclass
-class MeshResult:
-    name: str
-    samples: list[float]
-    metadata: dict[str, Any] = field(default_factory=dict)
-
-    def summary(self) -> dict[str, Any]:
-        out = {"scenario": self.name}
-        out.update(_summary_stats(self.samples))
-        out["metadata"] = self.metadata
-        return out
 
 
 def build_mesh(svc: slim.Service, conn_id: int, n: int, secret: str = SECRET, tag: str = "mesh") -> list[MeshAgent]:
