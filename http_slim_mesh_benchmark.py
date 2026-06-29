@@ -30,6 +30,7 @@ from slim_bench.http_slim_mesh import (
     teardown_http_slim_mesh,
     warm_sessions,
 )
+from slim_bench.mp_http_slim_mesh import run_parallel_http_slim_mesh
 from slim_bench.results import _summary_stats
 
 
@@ -39,6 +40,8 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--rounds", type=int, default=1)
     p.add_argument("--payload-size", type=int, default=64)
     p.add_argument("--concurrent", action="store_true", help="Thread-based concurrent fanout.")
+    p.add_argument("--parallel", action="store_true",
+                   help="True process-per-agent parallel fanout; overrides --concurrent.")
     p.add_argument("--sweep", action="store_true")
     p.add_argument("--agents-list", type=str, default="5,10,20")
     p.add_argument("--payloads", type=str, default="64,512")
@@ -46,13 +49,19 @@ def parse_args() -> argparse.Namespace:
     return p.parse_args()
 
 
-def run_one(svc, conn_id, agents_n, payload_size, rounds, concurrent) -> dict:
+def run_one(svc, conn_id, agents_n, payload_size, rounds, mode) -> dict:
+    """mode is one of 'sequential', 'concurrent' (threads), 'parallel' (processes)."""
     payload = _payload(payload_size)
     tag = f"hslim-{uuid.uuid4().hex[:8]}"
+
+    if mode == "parallel":
+        result = run_parallel_http_slim_mesh(agents_n, payload, rounds, tag)
+        return result.summary()
+
     agents = build_http_slim_mesh(svc, conn_id, agents_n, tag=tag)
     try:
         setup = warm_sessions(agents)
-        result = run_full_http_slim_mesh(agents, payload, rounds, concurrent)
+        result = run_full_http_slim_mesh(agents, payload, rounds, concurrent=(mode == "concurrent"))
     finally:
         served = teardown_http_slim_mesh(agents)
 
@@ -64,11 +73,12 @@ def run_one(svc, conn_id, agents_n, payload_size, rounds, concurrent) -> dict:
 
 def print_row(s: dict) -> None:
     m = s["metadata"]
+    wall = m.get("round_wall_mean_ms", m.get("wall_ms", 0.0))
     log(MG, "RESULT",
         f"n={B}{m['agents']:>3}{R} pay={B}{m['payload_bytes']:>4}{R} {m['mode']:>10}"
         f"  trips={B}{s['count']:>5}{R} served={B}{m['requests_served_by_peers']:>5}{R}"
         f"  mean={B}{s['mean_ms']:>6}{R} p95={B}{s['p95_ms']:>6}{R} p99={B}{s['p99_ms']:>6}{R}"
-        f"  round={B}{m['round_wall_mean_ms']:>7}{R}ms")
+        f"  round={B}{wall:>7}{R}ms")
 
 
 def main() -> None:
@@ -82,13 +92,15 @@ def main() -> None:
     if args.sweep:
         agents_list = [int(x) for x in args.agents_list.split(",") if x.strip()]
         payloads = [int(x) for x in args.payloads.split(",") if x.strip()]
-        for concurrent in (False, True):
+        modes = ["sequential", "concurrent", "parallel"] if args.parallel else ["sequential", "concurrent"]
+        for mode in modes:
             for n in agents_list:
                 for pay in payloads:
-                    log(CY, "SWEEP", f"n={n} payload={pay} concurrent={concurrent}")
-                    results.append(run_one(svc, conn_id, n, pay, args.rounds, concurrent))
+                    log(CY, "SWEEP", f"n={n} payload={pay} mode={mode}")
+                    results.append(run_one(svc, conn_id, n, pay, args.rounds, mode))
     else:
-        results.append(run_one(svc, conn_id, args.agents, args.payload_size, args.rounds, args.concurrent))
+        mode = "parallel" if args.parallel else ("concurrent" if args.concurrent else "sequential")
+        results.append(run_one(svc, conn_id, args.agents, args.payload_size, args.rounds, mode))
 
     report = {
         "timestamp_utc": datetime.now(timezone.utc).isoformat(),

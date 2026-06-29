@@ -1,5 +1,5 @@
 {
-  "timestamp_utc": "2026-06-29T23:19:03.430102+00:00",
+  "timestamp_utc": "2026-06-29T23:46:57.849507+00:00",
   "endpoint": "http://localhost:46357",
   "transport": "http_over_slim",
   "rounds": 3,
@@ -7,13 +7,13 @@
     {
       "scenario": "full_mesh_http_over_slim_sequential",
       "count": 60,
-      "mean_ms": 0.221,
-      "median_ms": 0.2,
-      "p50_ms": 0.198,
-      "p95_ms": 0.396,
-      "p99_ms": 0.409,
-      "min_ms": 0.119,
-      "max_ms": 0.648,
+      "mean_ms": 0.159,
+      "median_ms": 0.129,
+      "p50_ms": 0.128,
+      "p95_ms": 0.181,
+      "p99_ms": 0.223,
+      "min_ms": 0.113,
+      "max_ms": 1.373,
       "metadata": {
         "transport": "http_over_slim",
         "mode": "sequential",
@@ -23,429 +23,567 @@
         "expected_messages": 60,
         "payload_bytes": 64,
         "round_wall_ms": [
-          6.2,
-          3.7,
+          4.3,
+          2.8,
+          2.5
+        ],
+        "round_wall_mean_ms": 3.2,
+        "requests_served_by_peers": 60
+      },
+      "session_setup": {
+        "count": 20,
+        "mean_ms": 0.645,
+        "median_ms": 0.264,
+        "p50_ms": 0.263,
+        "p95_ms": 0.409,
+        "p99_ms": 0.409,
+        "min_ms": 0.186,
+        "max_ms": 7.664
+      }
+    },
+    {
+      "scenario": "full_mesh_http_over_slim_sequential",
+      "count": 60,
+      "mean_ms": 0.167,
+      "median_ms": 0.154,
+      "p50_ms": 0.154,
+      "p95_ms": 0.229,
+      "p99_ms": 0.301,
+      "min_ms": 0.143,
+      "max_ms": 0.306,
+      "metadata": {
+        "transport": "http_over_slim",
+        "mode": "sequential",
+        "agents": 5,
+        "rounds": 3,
+        "directed_edges": 20,
+        "expected_messages": 60,
+        "payload_bytes": 512,
+        "round_wall_ms": [
+          3.2,
+          3.4,
           3.4
+        ],
+        "round_wall_mean_ms": 3.3,
+        "requests_served_by_peers": 60
+      },
+      "session_setup": {
+        "count": 20,
+        "mean_ms": 0.532,
+        "median_ms": 0.485,
+        "p50_ms": 0.408,
+        "p95_ms": 0.868,
+        "p99_ms": 0.868,
+        "min_ms": 0.204,
+        "max_ms": 1.806
+      }
+    },
+    {
+      "scenario": "full_mesh_http_over_slim_sequential",
+      "count": 270,
+      "mean_ms": 0.137,
+      "median_ms": 0.13,
+      "p50_ms": 0.13,
+      "p95_ms": 0.173,
+      "p99_ms": 0.213,
+      "min_ms": 0.113,
+      "max_ms": 0.255,
+      "metadata": {
+        "transport": "http_over_slim",
+        "mode": "sequential",
+        "agents": 10,
+        "rounds": 3,
+        "directed_edges": 90,
+        "expected_messages": 270,
+        "payload_bytes": 64,
+        "round_wall_ms": [
+          13.4,
+          12.2,
+          11.5
+        ],
+        "round_wall_mean_ms": 12.3,
+        "requests_served_by_peers": 270
+      },
+      "session_setup": {
+        "count": 90,
+        "mean_ms": 0.297,
+        "median_ms": 0.241,
+        "p50_ms": 0.239,
+        "p95_ms": 0.57,
+        "p99_ms": 1.155,
+        "min_ms": 0.184,
+        "max_ms": 1.604
+      }
+    },
+    {
+      "scenario": "full_mesh_http_over_slim_sequential",
+      "count": 270,
+      "mean_ms": 0.173,
+      "median_ms": 0.157,
+      "p50_ms": 0.157,
+      "p95_ms": 0.249,
+      "p99_ms": 0.293,
+      "min_ms": 0.141,
+      "max_ms": 0.471,
+      "metadata": {
+        "transport": "http_over_slim",
+        "mode": "sequential",
+        "agents": 10,
+        "rounds": 3,
+        "directed_edges": 90,
+        "expected_messages": 270,
+        "payload_bytes": 512,
+        "round_wall_ms": [
+          18.4,
+          14.7,
+          13.6
+        ],
+        "round_wall_mean_ms": 15.6,
+        "requests_served_by_peers": 270
+      },
+      "session_setup": {
+        "count": 90,
+        "mean_ms": 0.384,
+        "median_ms": 0.316,
+        "p50_ms": 0.314,
+        "p95_ms": 0.635,
+        "p99_ms": 1.339,
+        "min_ms": 0.203,
+        "max_ms": 1.393
+      }
+    },
+    {
+      "scenario": "full_mesh_http_over_slim_sequential",
+      "count": 1140,
+      "mean_ms": 0.132,
+      "median_ms": 0.129,
+      "p50_ms": 0.129,
+      "p95_ms": 0.168,
+      "p99_ms": 0.197,
+      "min_ms": 0.113,
+      "max_ms": 0.241,
+      "metadata": {
+        "transport": "http_over_slim",
+        "mode": "sequential",
+        "agents": 20,
+        "rounds": 3,
+        "directed_edges": 380,
+        "expected_messages": 1140,
+        "payload_bytes": 64,
+        "round_wall_ms": [
+          53.5,
+          49.1,
+          48.5
+        ],
+        "round_wall_mean_ms": 50.4,
+        "requests_served_by_peers": 1140
+      },
+      "session_setup": {
+        "count": 380,
+        "mean_ms": 0.274,
+        "median_ms": 0.247,
+        "p50_ms": 0.247,
+        "p95_ms": 0.409,
+        "p99_ms": 0.671,
+        "min_ms": 0.17,
+        "max_ms": 2.186
+      }
+    },
+    {
+      "scenario": "full_mesh_http_over_slim_sequential",
+      "count": 1140,
+      "mean_ms": 0.17,
+      "median_ms": 0.166,
+      "p50_ms": 0.166,
+      "p95_ms": 0.211,
+      "p99_ms": 0.242,
+      "min_ms": 0.143,
+      "max_ms": 0.315,
+      "metadata": {
+        "transport": "http_over_slim",
+        "mode": "sequential",
+        "agents": 20,
+        "rounds": 3,
+        "directed_edges": 380,
+        "expected_messages": 1140,
+        "payload_bytes": 512,
+        "round_wall_ms": [
+          68.1,
+          62.7,
+          63.1
+        ],
+        "round_wall_mean_ms": 64.6,
+        "requests_served_by_peers": 1140
+      },
+      "session_setup": {
+        "count": 380,
+        "mean_ms": 0.325,
+        "median_ms": 0.258,
+        "p50_ms": 0.258,
+        "p95_ms": 0.652,
+        "p99_ms": 1.481,
+        "min_ms": 0.169,
+        "max_ms": 2.805
+      }
+    },
+    {
+      "scenario": "full_mesh_http_over_slim_concurrent",
+      "count": 60,
+      "mean_ms": 0.913,
+      "median_ms": 0.869,
+      "p50_ms": 0.867,
+      "p95_ms": 1.559,
+      "p99_ms": 1.731,
+      "min_ms": 0.127,
+      "max_ms": 2.71,
+      "metadata": {
+        "transport": "http_over_slim",
+        "mode": "concurrent",
+        "agents": 5,
+        "rounds": 3,
+        "directed_edges": 20,
+        "expected_messages": 60,
+        "payload_bytes": 64,
+        "round_wall_ms": [
+          5.0,
+          4.8,
+          3.8
+        ],
+        "round_wall_mean_ms": 4.5,
+        "requests_served_by_peers": 60
+      },
+      "session_setup": {
+        "count": 20,
+        "mean_ms": 0.64,
+        "median_ms": 0.567,
+        "p50_ms": 0.565,
+        "p95_ms": 1.116,
+        "p99_ms": 1.116,
+        "min_ms": 0.272,
+        "max_ms": 1.567
+      }
+    },
+    {
+      "scenario": "full_mesh_http_over_slim_concurrent",
+      "count": 60,
+      "mean_ms": 0.96,
+      "median_ms": 0.883,
+      "p50_ms": 0.882,
+      "p95_ms": 1.631,
+      "p99_ms": 2.044,
+      "min_ms": 0.219,
+      "max_ms": 2.751,
+      "metadata": {
+        "transport": "http_over_slim",
+        "mode": "concurrent",
+        "agents": 5,
+        "rounds": 3,
+        "directed_edges": 20,
+        "expected_messages": 60,
+        "payload_bytes": 512,
+        "round_wall_ms": [
+          4.3,
+          4.9,
+          4.1
         ],
         "round_wall_mean_ms": 4.4,
         "requests_served_by_peers": 60
       },
       "session_setup": {
         "count": 20,
-        "mean_ms": 0.819,
-        "median_ms": 0.733,
-        "p50_ms": 0.722,
-        "p95_ms": 1.092,
-        "p99_ms": 1.092,
-        "min_ms": 0.534,
-        "max_ms": 2.045
+        "mean_ms": 0.333,
+        "median_ms": 0.29,
+        "p50_ms": 0.278,
+        "p95_ms": 0.604,
+        "p99_ms": 0.604,
+        "min_ms": 0.202,
+        "max_ms": 0.665
       }
     },
     {
-      "scenario": "full_mesh_http_over_slim_sequential",
-      "count": 60,
-      "mean_ms": 0.284,
-      "median_ms": 0.266,
-      "p50_ms": 0.266,
-      "p95_ms": 0.382,
-      "p99_ms": 0.463,
-      "min_ms": 0.231,
-      "max_ms": 0.518,
+      "scenario": "full_mesh_http_over_slim_concurrent",
+      "count": 270,
+      "mean_ms": 1.603,
+      "median_ms": 1.437,
+      "p50_ms": 1.436,
+      "p95_ms": 3.219,
+      "p99_ms": 4.195,
+      "min_ms": 0.146,
+      "max_ms": 4.914,
       "metadata": {
         "transport": "http_over_slim",
-        "mode": "sequential",
+        "mode": "concurrent",
+        "agents": 10,
+        "rounds": 3,
+        "directed_edges": 90,
+        "expected_messages": 270,
+        "payload_bytes": 64,
+        "round_wall_ms": [
+          16.6,
+          16.2,
+          15.8
+        ],
+        "round_wall_mean_ms": 16.2,
+        "requests_served_by_peers": 270
+      },
+      "session_setup": {
+        "count": 90,
+        "mean_ms": 0.299,
+        "median_ms": 0.237,
+        "p50_ms": 0.235,
+        "p95_ms": 0.69,
+        "p99_ms": 0.932,
+        "min_ms": 0.178,
+        "max_ms": 1.118
+      }
+    },
+    {
+      "scenario": "full_mesh_http_over_slim_concurrent",
+      "count": 270,
+      "mean_ms": 1.916,
+      "median_ms": 1.697,
+      "p50_ms": 1.697,
+      "p95_ms": 3.832,
+      "p99_ms": 4.984,
+      "min_ms": 0.198,
+      "max_ms": 6.161,
+      "metadata": {
+        "transport": "http_over_slim",
+        "mode": "concurrent",
+        "agents": 10,
+        "rounds": 3,
+        "directed_edges": 90,
+        "expected_messages": 270,
+        "payload_bytes": 512,
+        "round_wall_ms": [
+          20.5,
+          20.1,
+          19.6
+        ],
+        "round_wall_mean_ms": 20.1,
+        "requests_served_by_peers": 270
+      },
+      "session_setup": {
+        "count": 90,
+        "mean_ms": 0.297,
+        "median_ms": 0.255,
+        "p50_ms": 0.255,
+        "p95_ms": 0.468,
+        "p99_ms": 1.182,
+        "min_ms": 0.182,
+        "max_ms": 1.232
+      }
+    },
+    {
+      "scenario": "full_mesh_http_over_slim_concurrent",
+      "count": 1140,
+      "mean_ms": 3.892,
+      "median_ms": 3.606,
+      "p50_ms": 3.606,
+      "p95_ms": 7.861,
+      "p99_ms": 10.813,
+      "min_ms": 0.137,
+      "max_ms": 13.687,
+      "metadata": {
+        "transport": "http_over_slim",
+        "mode": "concurrent",
+        "agents": 20,
+        "rounds": 3,
+        "directed_edges": 380,
+        "expected_messages": 1140,
+        "payload_bytes": 64,
+        "round_wall_ms": [
+          75.0,
+          78.9,
+          85.4
+        ],
+        "round_wall_mean_ms": 79.8,
+        "requests_served_by_peers": 1140
+      },
+      "session_setup": {
+        "count": 380,
+        "mean_ms": 0.31,
+        "median_ms": 0.272,
+        "p50_ms": 0.272,
+        "p95_ms": 0.397,
+        "p99_ms": 1.212,
+        "min_ms": 0.186,
+        "max_ms": 5.378
+      }
+    },
+    {
+      "scenario": "full_mesh_http_over_slim_concurrent",
+      "count": 1140,
+      "mean_ms": 4.489,
+      "median_ms": 4.156,
+      "p50_ms": 4.155,
+      "p95_ms": 8.815,
+      "p99_ms": 11.497,
+      "min_ms": 0.172,
+      "max_ms": 16.961,
+      "metadata": {
+        "transport": "http_over_slim",
+        "mode": "concurrent",
+        "agents": 20,
+        "rounds": 3,
+        "directed_edges": 380,
+        "expected_messages": 1140,
+        "payload_bytes": 512,
+        "round_wall_ms": [
+          90.8,
+          94.8,
+          93.5
+        ],
+        "round_wall_mean_ms": 93.0,
+        "requests_served_by_peers": 1140
+      },
+      "session_setup": {
+        "count": 380,
+        "mean_ms": 0.307,
+        "median_ms": 0.287,
+        "p50_ms": 0.286,
+        "p95_ms": 0.401,
+        "p99_ms": 0.706,
+        "min_ms": 0.186,
+        "max_ms": 2.298
+      }
+    },
+    {
+      "scenario": "full_mesh_http_over_slim_parallel",
+      "count": 60,
+      "mean_ms": 1.08,
+      "median_ms": 1.002,
+      "p50_ms": 0.996,
+      "p95_ms": 1.606,
+      "p99_ms": 1.839,
+      "min_ms": 0.73,
+      "max_ms": 2.1,
+      "metadata": {
+        "transport": "http_over_slim",
+        "mode": "parallel",
         "agents": 5,
         "rounds": 3,
+        "cpu_cores": 12,
         "directed_edges": 20,
         "expected_messages": 60,
-        "payload_bytes": 512,
-        "round_wall_ms": [
-          6.8,
-          5.2,
-          5.1
-        ],
-        "round_wall_mean_ms": 5.7,
-        "requests_served_by_peers": 60
-      },
-      "session_setup": {
-        "count": 20,
-        "mean_ms": 0.98,
-        "median_ms": 0.681,
-        "p50_ms": 0.676,
-        "p95_ms": 3.523,
-        "p99_ms": 3.523,
-        "min_ms": 0.423,
-        "max_ms": 3.704
-      }
-    },
-    {
-      "scenario": "full_mesh_http_over_slim_sequential",
-      "count": 270,
-      "mean_ms": 0.16,
-      "median_ms": 0.15,
-      "p50_ms": 0.149,
-      "p95_ms": 0.214,
-      "p99_ms": 0.262,
-      "min_ms": 0.126,
-      "max_ms": 0.291,
-      "metadata": {
-        "transport": "http_over_slim",
-        "mode": "sequential",
-        "agents": 10,
-        "rounds": 3,
-        "directed_edges": 90,
-        "expected_messages": 270,
+        "requests_served_by_peers": 60,
         "payload_bytes": 64,
-        "round_wall_ms": [
-          17.0,
-          13.6,
-          12.7
-        ],
-        "round_wall_mean_ms": 14.5,
-        "requests_served_by_peers": 270
-      },
-      "session_setup": {
-        "count": 90,
-        "mean_ms": 0.44,
-        "median_ms": 0.404,
-        "p50_ms": 0.404,
-        "p95_ms": 0.66,
-        "p99_ms": 0.963,
-        "min_ms": 0.27,
-        "max_ms": 1.15
+        "wall_ms": 1332.2
       }
     },
     {
-      "scenario": "full_mesh_http_over_slim_sequential",
-      "count": 270,
-      "mean_ms": 0.193,
-      "median_ms": 0.182,
-      "p50_ms": 0.182,
-      "p95_ms": 0.235,
-      "p99_ms": 0.405,
-      "min_ms": 0.159,
-      "max_ms": 0.435,
-      "metadata": {
-        "transport": "http_over_slim",
-        "mode": "sequential",
-        "agents": 10,
-        "rounds": 3,
-        "directed_edges": 90,
-        "expected_messages": 270,
-        "payload_bytes": 512,
-        "round_wall_ms": [
-          19.7,
-          16.9,
-          15.5
-        ],
-        "round_wall_mean_ms": 17.4,
-        "requests_served_by_peers": 270
-      },
-      "session_setup": {
-        "count": 90,
-        "mean_ms": 0.483,
-        "median_ms": 0.37,
-        "p50_ms": 0.369,
-        "p95_ms": 0.91,
-        "p99_ms": 1.891,
-        "min_ms": 0.255,
-        "max_ms": 2.305
-      }
-    },
-    {
-      "scenario": "full_mesh_http_over_slim_sequential",
-      "count": 1140,
-      "mean_ms": 0.155,
-      "median_ms": 0.151,
-      "p50_ms": 0.151,
-      "p95_ms": 0.184,
-      "p99_ms": 0.222,
-      "min_ms": 0.122,
-      "max_ms": 0.284,
-      "metadata": {
-        "transport": "http_over_slim",
-        "mode": "sequential",
-        "agents": 20,
-        "rounds": 3,
-        "directed_edges": 380,
-        "expected_messages": 1140,
-        "payload_bytes": 64,
-        "round_wall_ms": [
-          62.5,
-          57.1,
-          57.5
-        ],
-        "round_wall_mean_ms": 59.0,
-        "requests_served_by_peers": 1140
-      },
-      "session_setup": {
-        "count": 380,
-        "mean_ms": 0.319,
-        "median_ms": 0.292,
-        "p50_ms": 0.292,
-        "p95_ms": 0.501,
-        "p99_ms": 0.662,
-        "min_ms": 0.175,
-        "max_ms": 1.328
-      }
-    },
-    {
-      "scenario": "full_mesh_http_over_slim_sequential",
-      "count": 1140,
-      "mean_ms": 0.191,
-      "median_ms": 0.184,
-      "p50_ms": 0.184,
-      "p95_ms": 0.224,
-      "p99_ms": 0.322,
-      "min_ms": 0.164,
-      "max_ms": 0.459,
-      "metadata": {
-        "transport": "http_over_slim",
-        "mode": "sequential",
-        "agents": 20,
-        "rounds": 3,
-        "directed_edges": 380,
-        "expected_messages": 1140,
-        "payload_bytes": 512,
-        "round_wall_ms": [
-          75.9,
-          71.3,
-          70.5
-        ],
-        "round_wall_mean_ms": 72.6,
-        "requests_served_by_peers": 1140
-      },
-      "session_setup": {
-        "count": 380,
-        "mean_ms": 0.348,
-        "median_ms": 0.299,
-        "p50_ms": 0.299,
-        "p95_ms": 0.568,
-        "p99_ms": 0.801,
-        "min_ms": 0.2,
-        "max_ms": 5.637
-      }
-    },
-    {
-      "scenario": "full_mesh_http_over_slim_concurrent",
+      "scenario": "full_mesh_http_over_slim_parallel",
       "count": 60,
-      "mean_ms": 1.38,
-      "median_ms": 1.203,
-      "p50_ms": 1.189,
-      "p95_ms": 2.522,
-      "p99_ms": 2.958,
-      "min_ms": 0.393,
-      "max_ms": 3.639,
+      "mean_ms": 1.217,
+      "median_ms": 0.949,
+      "p50_ms": 0.926,
+      "p95_ms": 3.123,
+      "p99_ms": 3.759,
+      "min_ms": 0.673,
+      "max_ms": 3.88,
       "metadata": {
         "transport": "http_over_slim",
-        "mode": "concurrent",
+        "mode": "parallel",
         "agents": 5,
         "rounds": 3,
+        "cpu_cores": 12,
         "directed_edges": 20,
         "expected_messages": 60,
-        "payload_bytes": 64,
-        "round_wall_ms": [
-          7.9,
-          6.7,
-          6.1
-        ],
-        "round_wall_mean_ms": 6.9,
-        "requests_served_by_peers": 60
-      },
-      "session_setup": {
-        "count": 20,
-        "mean_ms": 0.889,
-        "median_ms": 0.667,
-        "p50_ms": 0.61,
-        "p95_ms": 1.74,
-        "p99_ms": 1.74,
-        "min_ms": 0.49,
-        "max_ms": 1.803
-      }
-    },
-    {
-      "scenario": "full_mesh_http_over_slim_concurrent",
-      "count": 60,
-      "mean_ms": 1.581,
-      "median_ms": 1.307,
-      "p50_ms": 1.298,
-      "p95_ms": 2.877,
-      "p99_ms": 3.402,
-      "min_ms": 0.241,
-      "max_ms": 4.534,
-      "metadata": {
-        "transport": "http_over_slim",
-        "mode": "concurrent",
-        "agents": 5,
-        "rounds": 3,
-        "directed_edges": 20,
-        "expected_messages": 60,
+        "requests_served_by_peers": 60,
         "payload_bytes": 512,
-        "round_wall_ms": [
-          8.7,
-          7.0,
-          6.6
-        ],
-        "round_wall_mean_ms": 7.4,
-        "requests_served_by_peers": 60
-      },
-      "session_setup": {
-        "count": 20,
-        "mean_ms": 0.762,
-        "median_ms": 0.609,
-        "p50_ms": 0.594,
-        "p95_ms": 1.169,
-        "p99_ms": 1.169,
-        "min_ms": 0.409,
-        "max_ms": 3.233
+        "wall_ms": 1301.9
       }
     },
     {
-      "scenario": "full_mesh_http_over_slim_concurrent",
+      "scenario": "full_mesh_http_over_slim_parallel",
       "count": 270,
-      "mean_ms": 1.858,
-      "median_ms": 1.662,
-      "p50_ms": 1.66,
-      "p95_ms": 3.826,
-      "p99_ms": 4.55,
-      "min_ms": 0.171,
-      "max_ms": 6.665,
+      "mean_ms": 1.272,
+      "median_ms": 1.195,
+      "p50_ms": 1.195,
+      "p95_ms": 2.067,
+      "p99_ms": 2.576,
+      "min_ms": 0.617,
+      "max_ms": 3.4,
       "metadata": {
         "transport": "http_over_slim",
-        "mode": "concurrent",
+        "mode": "parallel",
         "agents": 10,
         "rounds": 3,
+        "cpu_cores": 12,
         "directed_edges": 90,
         "expected_messages": 270,
+        "requests_served_by_peers": 270,
         "payload_bytes": 64,
-        "round_wall_ms": [
-          20.4,
-          18.6,
-          18.0
-        ],
-        "round_wall_mean_ms": 19.0,
-        "requests_served_by_peers": 270
-      },
-      "session_setup": {
-        "count": 90,
-        "mean_ms": 0.451,
-        "median_ms": 0.395,
-        "p50_ms": 0.394,
-        "p95_ms": 0.863,
-        "p99_ms": 1.086,
-        "min_ms": 0.266,
-        "max_ms": 1.485
+        "wall_ms": 1424.8
       }
     },
     {
-      "scenario": "full_mesh_http_over_slim_concurrent",
+      "scenario": "full_mesh_http_over_slim_parallel",
       "count": 270,
-      "mean_ms": 2.199,
-      "median_ms": 1.98,
-      "p50_ms": 1.976,
-      "p95_ms": 4.242,
-      "p99_ms": 6.291,
-      "min_ms": 0.26,
-      "max_ms": 7.256,
+      "mean_ms": 1.653,
+      "median_ms": 1.576,
+      "p50_ms": 1.573,
+      "p95_ms": 2.423,
+      "p99_ms": 3.335,
+      "min_ms": 0.602,
+      "max_ms": 3.582,
       "metadata": {
         "transport": "http_over_slim",
-        "mode": "concurrent",
+        "mode": "parallel",
         "agents": 10,
         "rounds": 3,
+        "cpu_cores": 12,
         "directed_edges": 90,
         "expected_messages": 270,
+        "requests_served_by_peers": 270,
         "payload_bytes": 512,
-        "round_wall_ms": [
-          24.6,
-          22.0,
-          21.0
-        ],
-        "round_wall_mean_ms": 22.5,
-        "requests_served_by_peers": 270
-      },
-      "session_setup": {
-        "count": 90,
-        "mean_ms": 0.495,
-        "median_ms": 0.394,
-        "p50_ms": 0.389,
-        "p95_ms": 0.833,
-        "p99_ms": 1.839,
-        "min_ms": 0.277,
-        "max_ms": 2.742
+        "wall_ms": 1405.3
       }
     },
     {
-      "scenario": "full_mesh_http_over_slim_concurrent",
+      "scenario": "full_mesh_http_over_slim_parallel",
       "count": 1140,
-      "mean_ms": 4.268,
-      "median_ms": 3.876,
-      "p50_ms": 3.876,
-      "p95_ms": 8.673,
-      "p99_ms": 11.181,
-      "min_ms": 0.24,
-      "max_ms": 13.803,
+      "mean_ms": 2.21,
+      "median_ms": 2.128,
+      "p50_ms": 2.126,
+      "p95_ms": 3.281,
+      "p99_ms": 4.33,
+      "min_ms": 0.664,
+      "max_ms": 6.996,
       "metadata": {
         "transport": "http_over_slim",
-        "mode": "concurrent",
+        "mode": "parallel",
         "agents": 20,
         "rounds": 3,
+        "cpu_cores": 12,
         "directed_edges": 380,
         "expected_messages": 1140,
+        "requests_served_by_peers": 1140,
         "payload_bytes": 64,
-        "round_wall_ms": [
-          88.2,
-          89.0,
-          89.1
-        ],
-        "round_wall_mean_ms": 88.8,
-        "requests_served_by_peers": 1140
-      },
-      "session_setup": {
-        "count": 380,
-        "mean_ms": 0.34,
-        "median_ms": 0.284,
-        "p50_ms": 0.284,
-        "p95_ms": 0.635,
-        "p99_ms": 1.014,
-        "min_ms": 0.204,
-        "max_ms": 1.884
+        "wall_ms": 1741.4
       }
     },
     {
-      "scenario": "full_mesh_http_over_slim_concurrent",
+      "scenario": "full_mesh_http_over_slim_parallel",
       "count": 1140,
-      "mean_ms": 5.211,
-      "median_ms": 4.911,
-      "p50_ms": 4.911,
-      "p95_ms": 10.036,
-      "p99_ms": 12.654,
-      "min_ms": 0.374,
-      "max_ms": 14.776,
+      "mean_ms": 1.973,
+      "median_ms": 1.896,
+      "p50_ms": 1.896,
+      "p95_ms": 2.793,
+      "p99_ms": 3.755,
+      "min_ms": 0.581,
+      "max_ms": 6.005,
       "metadata": {
         "transport": "http_over_slim",
-        "mode": "concurrent",
+        "mode": "parallel",
         "agents": 20,
         "rounds": 3,
+        "cpu_cores": 12,
         "directed_edges": 380,
         "expected_messages": 1140,
+        "requests_served_by_peers": 1140,
         "payload_bytes": 512,
-        "round_wall_ms": [
-          103.7,
-          108.2,
-          107.3
-        ],
-        "round_wall_mean_ms": 106.4,
-        "requests_served_by_peers": 1140
-      },
-      "session_setup": {
-        "count": 380,
-        "mean_ms": 0.375,
-        "median_ms": 0.291,
-        "p50_ms": 0.291,
-        "p95_ms": 0.706,
-        "p99_ms": 1.498,
-        "min_ms": 0.217,
-        "max_ms": 3.481
+        "wall_ms": 1667.2
       }
     }
   ]
