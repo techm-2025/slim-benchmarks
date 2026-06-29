@@ -81,7 +81,15 @@ const cells = makeTable([3400, 4000, 1960], [
   ["1", "A2A, no SLIM (mesh)", "Pending"],
   ["2", "A2A over SLIM", "Pending"],
   ["3", "HTTP, no SLIM (mesh)", "Done"],
-  ["4", "HTTP over SLIM", "Pending"],
+  ["4", "HTTP over SLIM", "Done"],
+]);
+
+// HTTP with vs without SLIM, round-trip, 64-byte payload, 3 rounds, sequential.
+const httpVs = makeTable([1500, 2400, 2400, 3060], [
+  ["Agents", "HTTP no SLIM mean", "HTTP over SLIM mean", "Improvement"],
+  ["5", "0.431", "0.221", "49 %"],
+  ["10", "0.220", "0.160", "27 %"],
+  ["20", "0.229", "0.155", "32 %"],
 ]);
 
 const doc = new Document({
@@ -126,7 +134,7 @@ const doc = new Document({
       H1("2. The four cells"),
       cells,
       P("", { }),
-      P("This iteration delivers cell 3 in full and the measurement method that all cells will use. Cells 1, 2, and 4 depend on the A2A application layer and the A2A-over-SLIM tunnel, which are owned jointly with the semantic-negotiation work and are not yet wired in."),
+      P("This iteration delivers both HTTP cells (3 and 4) and the measurement method that all cells use. Cells 1 and 2 depend on the A2A application layer and the A2A-over-SLIM tunnel, which are owned jointly with the semantic-negotiation work and are not yet wired in."),
 
       H1("3. Environment"),
       BUL("Machine: Apple MacBook Pro (Mac16,8), 12 CPU cores, 24 GB RAM."),
@@ -135,7 +143,7 @@ const doc = new Document({
       BUL("All runs are loopback on one machine, so absolute numbers are a lower bound; the shape and the relative comparison hold."),
 
       H1("4. Method"),
-      P("Each agent is a real participant: for SLIM it is a slim-bindings application that subscribes its own name and holds a point-to-point session to every peer; for HTTP it is a small HTTP server with a keep-alive connection to every peer. Sessions and connections are opened once in a warm phase, so the per-message timer measures the send path, not setup."),
+      P("Each agent is a real participant: for HTTP without SLIM it is a small HTTP server with a keep-alive connection to every peer; for the SLIM mesh it is a slim-bindings application that subscribes its own name and holds a point-to-point session to every peer; for HTTP over SLIM each agent tunnels an HTTP-style request and response through a SLIM point-to-point session, with the peer replying on the same session. Sessions and connections are opened once in a warm phase, so the per-message timer measures the send path, not setup."),
       P("Message count for N agents, one directed message per ordered pair, is N x (N-1) per round. Delivery is verified: receivers count messages and the total is reconciled against messages sent. All runs in this report show 100 percent delivery.", { }),
       P("Three execution modes are measured:", { bold: false }),
       BUL("Sequential: one message in flight at a time. This is the latency floor."),
@@ -155,12 +163,16 @@ const doc = new Document({
       conc,
       H2("6.3 Parallel (process per agent)"),
       par,
+      H2("6.4 HTTP with and without SLIM (round trip)"),
+      P("Both legs measure a full request-response round trip, so they are directly comparable. Sequential, 64-byte payload, 3 rounds."),
+      httpVs,
 
       H1("7. Findings"),
       BUL("SLIM is well under one millisecond sequentially and roughly three to five times faster than HTTP at the same configuration."),
       BUL("Under thread-based concurrency the HTTP tail degrades sharply (p99 reaches 63 ms at 20 agents) because all sends queue behind one interpreter lock; SLIM stays bounded because its dataplane runs outside that lock."),
       BUL("Under true process parallelism the HTTP tail collapses back (p99 at 20 agents drops from 63 ms to about 3.5 ms), which confirms the thread-concurrent tail was an artifact of the lock, not the transport."),
       BUL("SLIM under process parallelism remains sub-millisecond on average and the lowest of all three transports tested."),
+      BUL("On a like-for-like round trip, HTTP over SLIM is faster than direct HTTP, by about 32 percent at 20 agents, which is consistent with the previously reported improvement near 33 percent."),
 
       H1("8. How to run"),
       P("Prerequisites: Docker Desktop running, and a Python 3.12 virtual environment with slim-bindings 1.3.0."),
@@ -176,6 +188,10 @@ const doc = new Document({
       CODE("PYTHONPATH=. .venv-mesh/bin/python http_mesh_benchmark.py --sweep \\"),
       CODE("  --agents-list 5,10,20 --payloads 64,512 --rounds 3 --parallel \\"),
       CODE("  --output docs/evidence/http_mesh_sweep_parallel.json"),
+      NUM("Run the HTTP-over-SLIM sweep (cell 4; needs the node)."),
+      CODE("PYTHONPATH=. .venv-mesh/bin/python http_slim_mesh_benchmark.py --sweep \\"),
+      CODE("  --agents-list 5,10,20 --payloads 64,512 --rounds 3 \\"),
+      CODE("  --output docs/evidence/http_slim_mesh_sweep.json"),
       NUM("Stop the node when finished."),
       CODE("docker rm -f slim-node"),
 
@@ -184,14 +200,16 @@ const doc = new Document({
       BUL("slim_bench/mp_mesh.py: process-per-agent parallel SLIM harness."),
       BUL("slim_bench/http_mesh.py and http_mesh_benchmark.py: HTTP no-SLIM harness and runner."),
       BUL("slim_bench/mp_http_mesh.py: process-per-agent parallel HTTP harness."),
+      BUL("slim_bench/http_slim_mesh.py and http_slim_mesh_benchmark.py: HTTP-over-SLIM harness and runner (cell 4)."),
       BUL("slim_bench/results.py: shared result and summary-statistics shape used by every leg."),
-      BUL("docs/evidence/mesh_sweep_parallel.json and http_mesh_sweep_parallel.json: raw results behind this report."),
+      BUL("docs/evidence: mesh_sweep_parallel.json, http_mesh_sweep_parallel.json, and http_slim_mesh_sweep.json hold the raw results behind this report."),
 
       H1("10. Limitations and open items"),
       BUL("All measurements are loopback on one machine, so they are a lower bound; numbers will move over a real network."),
       BUL("True simultaneity is capped at the core count (12 here); larger agent counts are partly time-sliced."),
       BUL("Message model is not yet pinned: SLIM measures a one-way publish to confirmed delivery, while HTTP measures a full request-response round trip. These are not yet symmetric and must be aligned before the headline comparison."),
-      BUL("Cells 1, 2, and 4 (A2A and the A2A-over-SLIM tunnel) remain to be built; the sweep should then be extended toward 100 agents."),
+      BUL("Cells 1 and 2 (A2A and the A2A-over-SLIM tunnel) remain to be built; the sweep should then be extended toward 100 agents."),
+      BUL("Cell 4 currently has sequential and concurrent modes; the process-per-agent parallel mode can be added for full symmetry with the other legs."),
     ],
   }],
 });
