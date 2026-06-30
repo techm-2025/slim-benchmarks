@@ -42,3 +42,5 @@ captures/
 
 # Local mesh-benchmark venv
 .venv-mesh/
+# Local A2A (Python 3.13 agntcy stack) venv
+.venv-a2a/

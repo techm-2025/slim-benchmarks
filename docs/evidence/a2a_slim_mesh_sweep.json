@@ -1,0 +1,145 @@
+{
+  "timestamp_utc": "2026-06-30T03:32:51.263447+00:00",
+  "transport": "a2a_over_slim",
+  "rounds": 3,
+  "results": [
+    {
+      "scenario": "full_mesh_a2a_over_slim_sequential",
+      "count": 60,
+      "mean_ms": 9.693,
+      "median_ms": 8.135,
+      "p50_ms": 8.134,
+      "p95_ms": 21.723,
+      "p99_ms": 23.5,
+      "min_ms": 7.233,
+      "max_ms": 23.701,
+      "metadata": {
+        "transport": "a2a_over_slim",
+        "mode": "sequential",
+        "agents": 5,
+        "rounds": 3,
+        "cpu_cores": 12,
+        "directed_edges": 20,
+        "expected_messages": 60,
+        "requests_completed": 60,
+        "payload_bytes": 64,
+        "wall_ms": 8898.2
+      }
+    },
+    {
+      "scenario": "full_mesh_a2a_over_slim_sequential",
+      "count": 270,
+      "mean_ms": 11.939,
+      "median_ms": 11.158,
+      "p50_ms": 11.156,
+      "p95_ms": 15.861,
+      "p99_ms": 29.995,
+      "min_ms": 7.775,
+      "max_ms": 31.089,
+      "metadata": {
+        "transport": "a2a_over_slim",
+        "mode": "sequential",
+        "agents": 10,
+        "rounds": 3,
+        "cpu_cores": 12,
+        "directed_edges": 90,
+        "expected_messages": 270,
+        "requests_completed": 270,
+        "payload_bytes": 64,
+        "wall_ms": 9480.4
+      }
+    },
+    {
+      "scenario": "full_mesh_a2a_over_slim_sequential",
+      "count": 1140,
+      "mean_ms": 18.549,
+      "median_ms": 17.763,
+      "p50_ms": 17.759,
+      "p95_ms": 24.831,
+      "p99_ms": 47.377,
+      "min_ms": 6.63,
+      "max_ms": 53.77,
+      "metadata": {
+        "transport": "a2a_over_slim",
+        "mode": "sequential",
+        "agents": 20,
+        "rounds": 3,
+        "cpu_cores": 12,
+        "directed_edges": 380,
+        "expected_messages": 1140,
+        "requests_completed": 1140,
+        "payload_bytes": 64,
+        "wall_ms": 11862.4
+      }
+    },
+    {
+      "scenario": "full_mesh_a2a_over_slim_concurrent",
+      "count": 60,
+      "mean_ms": 19.669,
+      "median_ms": 16.787,
+      "p50_ms": 16.712,
+      "p95_ms": 29.048,
+      "p99_ms": 29.993,
+      "min_ms": 13.405,
+      "max_ms": 30.0,
+      "metadata": {
+        "transport": "a2a_over_slim",
+        "mode": "concurrent",
+        "agents": 5,
+        "rounds": 3,
+        "cpu_cores": 12,
+        "directed_edges": 20,
+        "expected_messages": 60,
+        "requests_completed": 60,
+        "payload_bytes": 64,
+        "wall_ms": 9022.1
+      }
+    },
+    {
+      "scenario": "full_mesh_a2a_over_slim_concurrent",
+      "count": 270,
+      "mean_ms": 45.821,
+      "median_ms": 49.044,
+      "p50_ms": 49.043,
+      "p95_ms": 64.612,
+      "p99_ms": 81.573,
+      "min_ms": 16.73,
+      "max_ms": 83.161,
+      "metadata": {
+        "transport": "a2a_over_slim",
+        "mode": "concurrent",
+        "agents": 10,
+        "rounds": 3,
+        "cpu_cores": 12,
+        "directed_edges": 90,
+        "expected_messages": 270,
+        "requests_completed": 270,
+        "payload_bytes": 64,
+        "wall_ms": 9246.1
+      }
+    },
+    {
+      "scenario": "full_mesh_a2a_over_slim_concurrent",
+      "count": 1140,
+      "mean_ms": 148.341,
+      "median_ms": 148.761,
+      "p50_ms": 148.645,
+      "p95_ms": 245.732,
+      "p99_ms": 279.462,
+      "min_ms": 18.071,
+      "max_ms": 301.021,
+      "metadata": {
+        "transport": "a2a_over_slim",
+        "mode": "concurrent",
+        "agents": 20,
+        "rounds": 3,
+        "cpu_cores": 12,
+        "directed_edges": 380,
+        "expected_messages": 1140,
+        "requests_completed": 1140,
+        "payload_bytes": 64,
+        "wall_ms": 11345.2
+      }
+    }
+  ]
+}
