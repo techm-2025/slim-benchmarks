@@ -68,6 +68,21 @@ const a2aVs = table([1700, 2553, 2553, 2554], [
   ["Agents", "A2A no SLIM", "A2A over SLIM", "Slower by"],
   ["5", "3.074", "9.693", "3.2x"], ["10", "4.073", "11.939", "2.9x"], ["20", "7.448", "18.549", "2.5x"]]);
 
+// Resource usage (measured with docker stats and ps during representative loads).
+const resTbl = table([3060, 2100, 2100, 2100], [
+  ["Component", "Memory", "CPU", "Bottleneck?"],
+  ["SLIM node (broker)", "6-17 MB", "0-68% of 1 core", "No"],
+  ["Client process, HTTP/SLIM", "~44 MB each", "shares host cores", "Yes (CPU)"],
+  ["Client process, A2A", "~136 MB each", "shares host cores", "Yes (CPU+mem)"],
+  ["Loopback network", "KB-scale", "negligible", "No"],
+]);
+const cpuTbl = table([2400, 2400, 4560], [
+  ["Mode", "Cores used", "Note"],
+  ["Sequential", "~1.5", "1 Python thread plus SLIM Rust runtime; GIL-bound"],
+  ["Concurrent (threads)", "~1.5 effective", "GIL serializes Python; OS thread limit near 80 agents"],
+  ["Parallel (processes)", "up to all 12", "true parallelism; host hits 0% idle; OS time-slices beyond core count"],
+]);
+
 const doc = new Document({
   styles: {
     default: { document: { run: { font: "Arial", size: 22 } } },
@@ -141,13 +156,24 @@ const doc = new Document({
       a2aVs,
       P("On this single machine A2A over SLIM is slower than A2A without SLIM, because the SLIM RPC and per-call session handshake add fixed overhead that the cheap loopback HTTP path does not pay. The SLIM benefit for A2A is expected at larger scale or over a real network, which is follow-up work."),
 
-      H1("8. Issues found and fixed during testing"),
+      H1("8. Resource usage and bottleneck"),
+      P("Resource usage was sampled with docker stats (node container) and ps and top (host and client processes) during representative loads on the 12-core, 24 GB machine."),
+      resTbl,
+      P("Across modes, client CPU usage tracks how the work spreads over cores:"),
+      cpuTbl,
+      P("Findings:"),
+      BUL("The SLIM node is not the bottleneck. It stays light, tens of megabytes of memory and at most about one core, even under the heaviest concurrent fan-out."),
+      BUL("The network is not the bottleneck. Traffic is loopback and totals only kilobytes; it is never the limiting factor in these runs."),
+      BUL("Client-side CPU is the primary bottleneck. In sequential and thread-concurrent modes the Python interpreter lock caps useful work at roughly 1.5 cores regardless of agent count; only the process-per-agent parallel mode uses all cores, at which point the host reaches 0 percent idle."),
+      BUL("At higher agent counts the limit shifts to host memory and process or thread count. Each HTTP/SLIM agent process is about 44 MB and each A2A agent process is about 136 MB, so A2A becomes memory-bound near 50 agents on 24 GB. The thread-concurrent mode separately hits the operating-system thread limit and fails to start new threads at around 80 agents, which is why scaling past that point uses the sequential or parallel modes."),
+
+      H1("9. Issues found and fixed during testing"),
       BUL("Process-parallel SLIM mesh failed with 'no matching route' until the sender declared a route to each peer (set_route) before opening the session; the single-connection thread model did not need this."),
       BUL("Thread-based concurrent mode showed inflated p99 tails (HTTP up to 63 ms at 20 agents) due to the Python interpreter lock; the process-parallel mode removed this (p99 about 3.5 ms), confirming the tail was a lock artifact, not transport."),
       BUL("A2A stack failed to start ('Expected UnaryUnaryHandler subclass') under loosely resolved dependencies; pinning to the lockfile versions (agntcy-app-sdk 0.5.1, slim-bindings 1.1.1, a2a-sdk 0.3.20) fixed it."),
       BUL("A2A client and server in the same process failed the SLIM handshake because the client reused the server connection; running them as separate processes (the mesh topology) resolved it."),
 
-      H1("9. How to reproduce"),
+      H1("10. How to reproduce"),
       NUM("Start the SLIM node for the cell under test (1.3.0 for cells 3/4, 1.0.0 with the Aether config for cell 2)."),
       NUM("Run the cell's sweep, for example HTTP over SLIM:"),
       CODE("PYTHONPATH=. .venv-mesh/bin/python http_slim_mesh_benchmark.py --sweep \\"),
@@ -155,7 +181,7 @@ const doc = new Document({
       CODE("  --output docs/evidence/http_slim_mesh_sweep.json"),
       NUM("Each runner prints sent vs delivered per row and writes the evidence JSON used in this report."),
 
-      H1("10. Limitations"),
+      H1("11. Limitations"),
       BUL("Loopback on one machine: latencies are a lower bound and the network is not exercised."),
       BUL("True simultaneity caps at the core count (12); larger agent counts are partly time-sliced."),
       BUL("SLIM measures a one-way publish to confirmed delivery while HTTP and A2A measure a full round trip; aligning the measurement basis is open."),
