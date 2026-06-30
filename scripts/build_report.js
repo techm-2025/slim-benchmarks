@@ -78,10 +78,18 @@ const par = makeTable([1500, 1980, 1980, 1980, 1980], [
 ]);
 const cells = makeTable([3400, 4000, 1960], [
   ["Cell", "Description", "Status"],
-  ["1", "A2A, no SLIM (mesh)", "Pending"],
-  ["2", "A2A over SLIM", "Pending"],
+  ["1", "A2A, no SLIM (mesh)", "Done"],
+  ["2", "A2A over SLIM", "Done"],
   ["3", "HTTP, no SLIM (mesh)", "Done"],
   ["4", "HTTP over SLIM", "Done"],
+]);
+
+// A2A with vs without SLIM, round trip, 64-byte payload, 3 rounds, sequential fan-out.
+const a2aVs = makeTable([1500, 2400, 2400, 3060], [
+  ["Agents", "A2A no SLIM mean", "A2A over SLIM mean", "Difference"],
+  ["5", "3.07", "9.69", "SLIM +6.6"],
+  ["10", "4.07", "11.94", "SLIM +7.9"],
+  ["20", "7.45", "18.55", "SLIM +11.1"],
 ]);
 
 // HTTP with vs without SLIM, round-trip, 64-byte payload, 3 rounds, sequential.
@@ -134,7 +142,7 @@ const doc = new Document({
       H1("2. The four cells"),
       cells,
       P("", { }),
-      P("This iteration delivers both HTTP cells (3 and 4) and the measurement method that all cells use. Cells 1 and 2 depend on the A2A application layer and the A2A-over-SLIM tunnel, which are owned jointly with the semantic-negotiation work and are not yet wired in."),
+      P("All four cells are now implemented and measured. Cells 1 and 2 use the A2A client and server from the agentic-itsm develop branch with a trivial echo agent, so they measure pure transport rather than semantic negotiation."),
 
       H1("3. Environment"),
       BUL("Machine: Apple MacBook Pro (Mac16,8), 12 CPU cores, 24 GB RAM."),
@@ -166,6 +174,9 @@ const doc = new Document({
       H2("6.4 HTTP with and without SLIM (round trip)"),
       P("Both legs measure a full request-response round trip, so they are directly comparable. Sequential, 64-byte payload, 3 rounds."),
       httpVs,
+      H2("6.5 A2A with and without SLIM (round trip)"),
+      P("A2A over an echo agent, process per agent, sequential fan-out, 64-byte payload, 3 rounds. Each unit is one A2A request to its result artifact."),
+      a2aVs,
 
       H1("7. Findings"),
       BUL("SLIM is well under one millisecond sequentially and roughly three to five times faster than HTTP at the same configuration."),
@@ -173,6 +184,7 @@ const doc = new Document({
       BUL("Under true process parallelism the HTTP tail collapses back (p99 at 20 agents drops from 63 ms to about 3.5 ms), which confirms the thread-concurrent tail was an artifact of the lock, not the transport."),
       BUL("SLIM under process parallelism remains sub-millisecond on average and the lowest of all three transports tested."),
       BUL("On a like-for-like round trip, HTTP over SLIM is faster than direct HTTP, by about 32 percent at 20 agents, which is consistent with the previously reported improvement near 33 percent."),
+      BUL("For A2A on this single machine the order reverses: A2A over SLIM is slower than A2A without SLIM, because the SLIM RPC and per-call session handshake add fixed overhead that the cheap loopback HTTP path does not pay. The SLIM benefit for A2A is expected to appear at larger scale or over a real network, not on loopback; confirming that is follow-up work."),
 
       H1("8. How to run"),
       P("Prerequisites: Docker Desktop running, and a Python 3.12 virtual environment with slim-bindings 1.3.0."),
@@ -192,6 +204,14 @@ const doc = new Document({
       CODE("PYTHONPATH=. .venv-mesh/bin/python http_slim_mesh_benchmark.py --sweep \\"),
       CODE("  --agents-list 5,10,20 --payloads 64,512 --rounds 3 \\"),
       CODE("  --output docs/evidence/http_slim_mesh_sweep.json"),
+      NUM("A2A cells use a separate Python 3.13 env (.venv-a2a) and a slim:1.0.0 node with the Aether config. Cell 2 (A2A over SLIM):"),
+      CODE(".venv-a2a/bin/python a2a_slim_mesh_benchmark.py --sweep \\"),
+      CODE("  --agents-list 5,10,20 --payloads 64 --rounds 3 \\"),
+      CODE("  --output docs/evidence/a2a_slim_mesh_sweep.json"),
+      NUM("Cell 1 (A2A no SLIM; needs no node)."),
+      CODE(".venv-a2a/bin/python a2a_http_mesh_benchmark.py --sweep \\"),
+      CODE("  --agents-list 5,10,20 --payloads 64 --rounds 3 \\"),
+      CODE("  --output docs/evidence/a2a_http_mesh_sweep.json"),
       NUM("Stop the node when finished."),
       CODE("docker rm -f slim-node"),
 
@@ -201,15 +221,17 @@ const doc = new Document({
       BUL("slim_bench/http_mesh.py and http_mesh_benchmark.py: HTTP no-SLIM harness and runner."),
       BUL("slim_bench/mp_http_mesh.py: process-per-agent parallel HTTP harness."),
       BUL("slim_bench/http_slim_mesh.py and http_slim_mesh_benchmark.py: HTTP-over-SLIM harness and runner (cell 4)."),
+      BUL("slim_bench/a2a_http_mesh.py and a2a_http_mesh_benchmark.py: A2A no-SLIM harness and runner (cell 1)."),
+      BUL("slim_bench/a2a_slim_mesh.py and a2a_slim_mesh_benchmark.py: A2A-over-SLIM harness and runner (cell 2)."),
       BUL("slim_bench/results.py: shared result and summary-statistics shape used by every leg."),
-      BUL("docs/evidence: mesh_sweep_parallel.json, http_mesh_sweep_parallel.json, and http_slim_mesh_sweep.json hold the raw results behind this report."),
+      BUL("docs/evidence holds the raw sweep results for all four cells."),
 
       H1("10. Limitations and open items"),
       BUL("All measurements are loopback on one machine, so they are a lower bound; numbers will move over a real network."),
       BUL("True simultaneity is capped at the core count (12 here); larger agent counts are partly time-sliced."),
       BUL("Message model is not yet pinned: SLIM measures a one-way publish to confirmed delivery, while HTTP measures a full request-response round trip. These are not yet symmetric and must be aligned before the headline comparison."),
-      BUL("Cells 1 and 2 (A2A and the A2A-over-SLIM tunnel) remain to be built; the sweep should then be extended toward 100 agents."),
-      BUL("Cell 4 currently has sequential and concurrent modes; the process-per-agent parallel mode can be added for full symmetry with the other legs."),
+      BUL("All four cells are implemented. The sweep should be extended toward 100 agents, and repeated over a real network to confirm the SLIM benefit for A2A that loopback hides."),
+      BUL("A2A cells use an echo agent, so they measure transport only; adding the real semantic-negotiation handler would measure end-to-end convergence."),
     ],
   }],
 });
