@@ -1,0 +1,31 @@
+# Python virtual environments
+.venv/
+.venv-a2a/
+
+# Byte-compiled / optimized files
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Distribution / build artifacts
+*.egg-info/
+dist/
+build/
+*.egg
+
+# macOS metadata
+.DS_Store
+
+# Editor / IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Test and coverage artifacts
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Jupyter
+.ipynb_checkpoints/
